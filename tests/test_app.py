@@ -10,12 +10,16 @@ class FlaskAppTestCase(unittest.TestCase):
     def test_home(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Hello, Docker Flask!", response.data)
+        data = response.get_json()
+        self.assertIsInstance(data, dict)
+        self.assertEqual(data.get("message"), "Hello, Docker Flask!")
 
     def test_add(self):
         response = self.app.get('/add/2/3')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'"result": 5', response.data)
+        data = response.get_json()
+        self.assertIn("result", data)
+        self.assertEqual(data["result"], 5)
 
 if __name__ == '__main__':
     unittest.main()
