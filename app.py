@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return jsonify({"message": "Hello, Docker Flaskx!"})
+    return jsonify({"message": "Hello, Docker Flask + CI/CD!"})
 
 @app.route('/add/<int:a>/<int:b>')
 def add(a, b):
