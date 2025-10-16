@@ -46,7 +46,10 @@ jobs:
           push: true
           tags: ojiset22/nusapod-python:latest
 
-      #- name: Trigger Webhook (Server Pull)
-      #  run: |
-      #    echo "Calling webhook..."
-      #    curl -X POST ${{ secrets.WEBHOOK_URL }} -H "Content-Type: application/json" -d '{"event":"update_image","image":"ojiset22/nusapod-python:latest"}'
+      - name: Trigger NusaPod Webhook (Server Pull)
+        run: |
+          echo "Calling NusaPod Webhook.."
+          curl -X POST https://nusapod.com/containers/webhook \
+            -H "Content-Type: application/json" \
+            -H "X-Webhook-Token: ${{ secrets.WEBHOOK_TOKEN }}" \
+            -d '{"name":"Python1","image":"ojiset22/nusapod-python:latest"}'
